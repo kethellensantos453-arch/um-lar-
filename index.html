@@ -4,119 +4,1276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Um Lar, Um Recomeço</title>
+    <!-- Google Fonts - Tipografia Elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- DESIGN SYSTEM & VARIÁVEIS --- */
+        :root {
+            --bg-primary: #FAF9F6; /* Off-white */
+            --bg-card: #FFFFFF;
+            --color-primary: #1A1A1A; /* Quase preto */
+            --color-muted: #707070;
+            --accent-gold: #C5A880; /* Ouro Acetinado */
+            --accent-gold-hover: #AF9168;
+            --bg-beige: #F5EBE0;
+            --border-color: #EAE5DF;
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.03);
+            --shadow-premium: 0 20px 40px rgba(197, 168, 128, 0.08);
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: var(--bg-primary);
+            color: var(--color-primary);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- TELA DE ABERTURA EMOCIONANTE --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #FFFFFF;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            justify-content: center;
             padding: 20px;
+            transition: var(--transition-smooth);
         }
 
-        .container {
-            background-color: #fff;
-            max-width: 450px;
+        .intro-photo-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--bg-beige);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 1.5s forwards 0.5s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .intro-photo-frame img {
             width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 20px;
+            height: 100%;
+            object-fit: cover;
         }
 
-        h1 {
-            color: #2c3e50;
-            font-size: 24px;
+        .intro-text-container {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+
+        .intro-phrase {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--color-primary);
+            font-style: italic;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .phrase-1 { animation: cyclePhraseOne 4s forwards 1.2s ease; }
+        .phrase-2 { animation: cyclePhraseTwo 4s forwards 5.2s ease; }
+
+        .enter-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--color-primary);
+            padding: 14px 45px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInBtn 1.5s forwards 9.5s ease;
+            transition: var(--transition-smooth);
+        }
+
+        .enter-btn:hover {
+            background-color: var(--accent-gold);
+            color: white;
+            box-shadow: var(--shadow-premium);
+        }
+
+        /* Animação de Saída (Abertura de Porta) */
+        .slide-up-exit {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            max-width: 480px; /* Perfeito para Mobile */
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.4rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--color-primary);
             margin-bottom: 10px;
         }
 
-        p.subtitle {
-            color: #7f8c8d;
-            font-size: 14px;
+        header .subtitle {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        /* --- SEÇÃO HISTÓRIA --- */
+        .story-section {
+            margin-bottom: 80px;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .story-node {
+            margin-bottom: 35px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .story-node.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-node p {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
             line-height: 1.6;
+            color: var(--color-primary);
+            font-style: italic;
+        }
+
+        .story-node span {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-gold);
+            margin-top: 8px;
+            font-style: normal;
+        }
+
+        /* --- VISUAL DA CASA DINÂMICA (PROGRESSO) --- */
+        .house-section {
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            padding: 35px 20px;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 60px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .section-desc {
+            font-size: 0.8rem;
+            color: var(--color-muted);
             margin-bottom: 30px;
         }
 
-        .card-status {
-            background: linear-gradient(135deg, #6c5ce7, #a861ff);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
+        /* Casa em Vetor CSS */
+        .house-visualization {
+            width: 200px;
+            height: 180px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+
+        .house-part {
+            position: absolute;
+            transition: var(--transition-smooth);
+            opacity: 0.15; /* Estado base antes do progresso */
+        }
+
+        .house-part.active {
+            opacity: 1;
+        }
+
+        /* Elementos da Casa */
+        .part-roof {
+            top: 0; left: 10px;
+            width: 0; height: 0;
+            border-left: 90px solid transparent;
+            border-right: 90px solid transparent;
+            border-bottom: 60px solid var(--accent-gold);
+        }
+        .part-walls {
+            top: 60px; left: 25px;
+            width: 150px; height: 100px;
+            border: 2px solid var(--color-primary);
+            background-color: #FFF;
+            border-radius: 4px;
+        }
+        .part-door {
+            bottom: 20px; left: 85px;
+            width: 30px; height: 50px;
+            background-color: var(--accent-gold);
+            border: 2px solid var(--color-primary);
+            border-bottom: none;
+        }
+        .part-window-1 {
+            top: 80px; left: 45px;
+            width: 25px; height: 25px;
+            border: 2px solid var(--color-primary);
+            background-color: #FFF;
+        }
+        .part-window-2 {
+            top: 80px; right: 45px;
+            width: 25px; height: 25px;
+            border: 2px solid var(--color-primary);
+            background-color: #FFF;
+        }
+        .part-garden {
+            bottom: 12px; left: 10px;
+            width: 180px; height: 12px;
+            background-color: #C2D5A7;
+            border-radius: 10px;
+        }
+        .part-chimney {
+            top: 15px; right: 40px;
+            width: 18px; height: 35px;
+            background-color: var(--color-primary);
+        }
+
+        /* --- AMBIENTES DA CASA --- */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .room-btn {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 20px 15px;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .room-btn:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+            background-color: #FFF;
+        }
+
+        .room-btn span {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .room-btn h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        /* --- ABAS DE PARTICIPAÇÃO --- */
+        .participation-section {
+            margin-bottom: 60px;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 10px;
             margin-bottom: 25px;
         }
 
-        .card-status h2 {
-            font-size: 18px;
+        .tab-btn {
+            flex: 1;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px 5px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: var(--color-muted);
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            border-color: var(--accent-gold);
+            background-color: var(--accent-gold);
+            color: #FFFFFF;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Estilo dos Cartões de Presentes */
+        .gifts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .gift-card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .gift-card:hover {
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .gift-img-placeholder {
+            width: 70px;
+            height: 70px;
+            background-color: var(--bg-beige);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .gift-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .gift-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .gift-price {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .gift-status {
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .status-disponivel { background-color: #E8F5E9; color: #2E7D32; }
+        .status-reservado { background-color: #FFF3E0; color: #EF6C00; }
+        .status-concluido { background-color: #ECEFF1; color: #455A64; }
+
+        /* Estilo dos Cartões de Tijolinhos */
+        .bricks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .brick-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .brick-card:hover, .brick-card.selected {
+            border-color: var(--accent-gold);
+            background-color: var(--bg-beige);
+        }
+
+        .brick-card span {
+            font-size: 1.2rem;
+            display: block;
             margin-bottom: 5px;
         }
 
-        .card-status p {
-            font-size: 14px;
-            opacity: 0.9;
+        .brick-card h4 {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            margin-bottom: 2px;
         }
 
-        .btn {
-            display: block;
-            background-color: #2ecc71;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
+        .brick-card p {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .custom-brick-input {
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .custom-brick-input input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .custom-brick-input input:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* --- GRADE DA RIFA EXCLUSIVA --- */
+        .raffle-container {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .raffle-legend {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot-disp { background-color: #E0E0E0; }
+        .dot-res { background-color: #FBC02D; }
+        .dot-conf { background-color: #4CAF50; }
+
+        .raffle-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 5px;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
+            padding: 10px;
+        }
+
+        .raffle-num {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background-color: #F5F5F5;
+            border: 1px solid transparent;
+        }
+
+        .raffle-num.disponivel { color: #333; }
+        .raffle-num.reservado { background-color: #FFF9C4; color: #F57F17; }
+        .raffle-num.confirmado { background-color: #C8E6C9; color: #2E7D32; pointer-events: none; }
+        .raffle-num:hover { transform: scale(1.05); border-color: var(--accent-gold); }
+
+        /* --- SEÇÃO SORTEIO & PROGRESSO --- */
+        .draw-section {
+            background-color: var(--bg-beige);
+            border-radius: 24px;
+            padding: 35px 20px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .draw-section p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 25px;
+        }
+
+        .rules-list {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+
+        .rules-list li {
+            font-size: 0.8rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .rules-list li::before {
+            content: "•";
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 15px;
-            transition: background 0.3s ease;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
         }
 
-        .btn:active {
-            background-color: #27ae60;
-        }
-
-        .btn-secondary {
-            background-color: #3498db;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
-        }
-
-        .btn-secondary:active {
-            background-color: #2980b9;
-        }
-
-        footer {
+        .progress-container {
             margin-top: 30px;
-            font-size: 12px;
-            color: #bdc3c7;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            background-color: rgba(255, 255, 255, 0.6);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--accent-gold);
+            height: 100%;
+            width: 73%; /* Progresso Real Configurado */
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* --- MODAL ELEGANTE (BOTTOM SHEET / MODAL) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            z-index: 10000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 28px 28px 0 0;
+            padding: 30px 24px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-muted);
+        }
+
+        .modal-body {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+        }
+
+        /* --- ESTILOS DE FORMULÁRIO --- */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+            color: var(--color-muted);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .pix-box {
+            background-color: var(--bg-primary);
+            border: 1px dashed var(--accent-gold);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .qr-placeholder {
+            width: 130px;
+            height: 130px;
+            background-color: #EEE;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            border-radius: 8px;
+        }
+
+        .action-btn {
+            width: 100%;
+            background-color: var(--color-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            margin-top: 10px;
+        }
+
+        .action-btn:hover {
+            background-color: var(--accent-gold);
+        }
+
+        .secondary-btn {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--bg-primary);
+        }
+
+        /* --- RODAPÉ --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            margin-bottom: 15px;
+        }
+
+        .footer-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-whatsapp:hover {
+            color: var(--accent-gold);
+        }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes fadeInScale {
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeInBtn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cyclePhraseOne {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+        @keyframes cyclePhraseTwo {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Um Lar, Um Recomeço</h1>
-        <p class="subtitle">Acompanhe nossa jornada e colabore com a nossa conquista. Cada passo nos aproxima de um novo começo!</p>
-
-        <div class="card-status">
-            <h2>Ação Solidária Ativa</h2>
-            <p>Clique abaixo para participar da nossa rifa especial.</p>
+    <!-- --- TELA DE ABERTURA EMOCIONANTE --- -->
+    <div id="intro-overlay">
+        <div class="intro-photo-frame">
+            <!-- Espaço reservado para foto elegante -->
+            <div style="background-color: var(--bg-beige); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🏠</div>
         </div>
-
-        <a href="https://wa.me/5521999999999" class="btn" target="_blank">Adquirir Ponto na Rifa 🎟️</a>
-        <a href="https://wa.me/5521999999999" class="btn btn-secondary" target="_blank">Falar no WhatsApp 💬</a>
-
-        <footer>
-             Criado com carinho • 2026
-        </footer>
+        <div class="intro-text-container">
+            <p class="intro-phrase phrase-1">"Toda casa começa vazia."</p>
+            <p class="intro-phrase phrase-2">"Mas nenhum sonho precisa ser construído sozinho."</p>
+        </div>
+        <button class="enter-btn" onclick="openGate()">✨ Entrar</button>
     </div>
 
+    <!-- --- CONTEÚDO PRINCIPAL --- -->
+    <main id="main-content">
+        <header>
+            <p class="subtitle">Seja bem-vindo ao projeto</p>
+            <h1>Um Lar, Um Recomeço</h1>
+        </header>
+
+        <!-- --- SEÇÃO HISTÓRIA --- -->
+        <section class="story-section">
+            <div class="story-node reveal">
+                <p>"Recomeçar nunca foi uma escolha."</p>
+                <span>Sua Presença Apoia</span>
+            </div>
+            <div class="story-node reveal">
+                <p>"Mas continuar sempre foi."</p>
+                <span>Nossa Determinação</span>
+            </div>
+            <div class="story-node reveal">
+                <p>"Hoje estou construindo meu lar."</p>
+                <span>A Base de Tudo</span>
+            </div>
+            <div class="story-node reveal">
+                <p>"E cada pessoa que passa por aqui faz parte dessa história."</p>
+                <span>Comunidade</span>
+            </div>
+        </section>
+
+        <!-- --- SEÇÃO DA CASA DINÂMICA & AMBIENTES --- -->
+        <section class="house-section">
+            <h2 class="section-title">Nossa Casa</h2>
+            <p class="section-desc">Toque nos cômodos abaixo para ver o enxoval e itens necessários.</p>
+            
+            <div class="house-visualization">
+                <div class="house-part part-chimney active"></div>
+                <div class="house-part part-roof active"></div>
+                <div class="house-part part-walls active"></div>
+                <div class="house-part part-door active"></div>
+                <div class="house-part part-window-1 active"></div>
+                <div class="house-part part-window-2 active"></div>
+                <div class="house-part part-garden active"></div>
+            </div>
+
+            <div class="rooms-grid">
+                <div class="room-btn" onclick="openRoom('Quarto', ['Cama Box', 'Colchão Casal', 'Guarda-Roupa', 'Travesseiros'])">
+                    <span>🛏️</span>
+                    <h3>Quarto</h3>
+                </div>
+                <div class="room-btn" onclick="openRoom('Cozinha', ['Geladeira', 'Fogão', 'Armário', 'Mesa'])">
+                    <span>🍳</span>
+                    <h3>Cozinha</h3>
+                </div>
+                <div class="room-btn" onclick="openRoom('Sala', ['Sofá Retrátil', 'Rack de TV', 'Cortinas', 'Mesa de Centro'])">
+                    <span>🛋️</span>
+                    <h3>Sala</h3>
+                </div>
+                <div class="room-btn" onclick="openRoom('Banheiro', ['Chuveiro Elétrico', 'Armário com Espelho', 'Jogo de Toalhas'])">
+                    <span>🚿</span>
+                    <h3>Banheiro</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- SEÇÃO PARTICIPAR (ABAS MODERNAS) --- -->
+        <section class="participation-section">
+            <h2 class="section-title" style="text-align: center;">Fazer Parte</h2>
+            <p class="section-desc" style="text-align: center;">Selecione a maneira como deseja deixar sua marca em nosso lar.</p>
+            
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab('tab-presentear', this)">🎁 Presentear</button>
+                <button class="tab-btn" onclick="switchTab('tab-tijolinho', this)">🧱 Tijolinho</button>
+                <button class="tab-btn" onclick="switchTab('tab-rifa', this)">🎟️ Chá-Rifa</button>
+            </div>
+
+            <!-- TAB 1: PRESENTEAR -->
+            <div id="tab-presentear" class="tab-content active">
+                <div class="gifts-grid">
+                    <div class="gift-card" onclick="openGiftDetail('Fogão 4 Bocas', 'R$ 450,00')">
+                        <div class="gift-img-placeholder">🍳</div>
+                        <div class="gift-info">
+                            <h4 class="gift-title">Fogão 4 Bocas</h4>
+                            <p class="gift-price">R$ 450,00</p>
+                            <span class="gift-status status-disponivel">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="gift-card" onclick="openGiftDetail('Geladeira Duplex', 'R$ 2.200,00')">
+                        <div class="gift-img-placeholder">❄️</div>
+                        <div class="gift-info">
+                            <h4 class="gift-title">Geladeira Duplex</h4>
+                            <p class="gift-price">R$ 2.200,00</p>
+                            <span class="gift-status status-disponivel">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="gift-card" onclick="openGiftDetail('Mesa de Jantar', 'R$ 600,00')">
+                        <div class="gift-img-placeholder">🪑</div>
+                        <div class="gift-info">
+                            <h4 class="gift-title">Mesa de Jantar</h4>
+                            <p class="gift-price">R$ 600,00</p>
+                            <span class="gift-status status-reservado">Reservado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TIJOLINHO -->
+            <div id="tab-tijolinho" class="tab-content">
+                <div class="bricks-grid">
+                    <div class="brick-card" onclick="selectBrick(20, this)">
+                        <span>🧱</span>
+                        <h4>2 Tijolos</h4>
+                        <p>R$ 20</p>
+                    </div>
+                    <div class="brick-card" onclick="selectBrick(50, this)">
+                        <span>🧱🧱</span>
+                        <h4>5 Tijolos</h4>
+                        <p>R$ 50</p>
+                    </div>
+                    <div class="brick-card" onclick="selectBrick(100, this)">
+                        <span>🧱🧱🧱</span>
+                        <h4>10 Tijolos</h4>
+                        <p>R$ 100</p>
+                    </div>
+                </div>
+                <div class="custom-brick-input">
+                    <input type="number" id="custom-brick-amount" placeholder="Outro Valor (Mínimo R$ 20)" oninput="handleCustomBrickInput()">
+                </div>
+                <button class="action-btn" style="margin-top: 20px;" onclick="generateBrickPix()">Contribuir com Tijolinho</button>
+            </div>
+
+            <!-- TAB 3: CHÁ-RIFA -->
+            <div id="tab-rifa" class="tab-content">
+                <div class="raffle-container">
+                    <div class="raffle-legend">
+                        <span class="legend-item"><span class="dot dot-disp"></span> Disponível</span>
+                        <span class="legend-item"><span class="dot dot-res"></span> Reservado</span>
+                        <span class="legend-item"><span class="dot dot-conf"></span> Confirmado</span>
+                    </div>
+                    <div class="raffle-grid" id="raffle-grid">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- SEÇÃO SORTEIO --- -->
+        <section class="draw-section">
+            <h2 class="section-title">Sorteio de Agradecimento</h2>
+            <p>Como forma de expressar nossa profunda gratidão, realizaremos um sorteio especial.</p>
+            
+            <div style="font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 10px;">🏆 R$ 400,00</div>
+            
+            <ul class="rules-list">
+                <li>O sorteio acontecerá somente quando a casa estiver 100% concluída.</li>
+                <li>Cada número adquirido equivale a uma chance no sorteio.</li>
+                <li>Quem adquirir mais números terá mais chances.</li>
+                <li>A data será divulgada após a conclusão da meta.</li>
+            </ul>
+
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Meta da Casa</span>
+                    <span>73%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- --- RODAPÉ & CONTATO --- -->
+        <footer>
+            <p>Dúvidas ou quer apenas bater um papo?</p>
+            <a href="https://wa.me/5521983719151" class="footer-whatsapp" target="_blank">
+                💬 (21) 98371-9151
+            </a>
+            <p style="margin-top: 30px; font-size: 0.65rem; color: #BBB;">© 2026 Um Lar, Um Recomeço. Desenvolvido com carinho.</p>
+        </footer>
+    </main>
+
+    <!-- --- SISTEMA DE MODAL ÚNICO --- -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Título do Modal</h3>
+                <button class="close-modal-btn" onclick="toggleModal(false)">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo Dinâmico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- --- COMPORTAMENTO INTERATIVO (JAVASCRIPT) --- -->
+    <script>
+        // Animação de Entrada
+        function openGate() {
+            const overlay = document.getElementById('intro-overlay');
+            const main = document.getElementById('main-content');
+            overlay.classList.add('slide-up-exit');
+            main.classList.add('visible');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 600);
+        }
+
+        // Navegação de Abas (Fazer Parte)
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Sistema Unificado de Modal
+        function toggleModal(show, title = '', bodyHtml = '') {
+            const modal = document.getElementById('modal-overlay');
+            if (show) {
+                document.getElementById('modal-title').innerText = title;
+                document.getElementById('modal-body').innerHTML = bodyHtml;
+                modal.classList.add('active');
+            } else {
+                modal.classList.remove('active');
+            }
+        }
+
+        function closeModal(event) {
+            if (event.target.id === 'modal-overlay') {
+                toggleModal(false);
+            }
+        }
+
+        // AMBIENTES DA CASA (Modais de Cômodos)
+        function openRoom(roomName, items) {
+            let listHtml = '<ul style="list-style: none; padding: 0; margin-bottom: 20px;">';
+            items.forEach((item, index) => {
+                const checked = index % 2 === 0 ? '✓' : ' '; // Apenas para simular progresso de entrega real
+                const color = checked === '✓' ? 'color: var(--accent-gold); font-weight: 600;' : 'color: var(--color-muted);';
+                listHtml += `
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; ${color}">
+                        <span>${item}</span>
+                        <span>${checked === '✓' ? '✨ Adquirido' : '⬜ Pendente'}</span>
+                    </li>
+                `;
+            });
+            listHtml += '</ul>';
+            listHtml += `<button class="action-btn" onclick="toggleModal(false)">Voltar para a Casa</button>`;
+            toggleModal(true, `Cômodo: ${roomName}`, listHtml);
+        }
+
+        // ABA 1: DETALHE DE PRESENTES
+        function openGiftDetail(name, value) {
+            const cleanValue = value.replace('R$ ', '');
+            const bodyHtml = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <p style="font-size: 1.1rem; font-weight: 500; margin-bottom: 8px;">Você escolheu presentear este item:</p>
+                    <h4 style="font-size: 1.3rem; color: var(--accent-gold); margin-bottom: 20px;">${name} (${value})</h4>
+                    
+                    <button class="action-btn" style="margin-bottom: 12px;" onclick="window.open('https://wa.me/5521983719151?text=Olá!%20Gostaria%20de%20combinar%20a%20entrega%20do%20presente:%20${encodeURIComponent(name)}', '_blank')">
+                        Entregar Presente Físico 🚚
+                    </button>
+                    
+                    <button class="action-btn secondary-btn" onclick="showGiftPix('${cleanValue}')">
+                        Contribuir com Valor via Pix 💳
+                    </button>
+                </div>
+            `;
+            toggleModal(true, 'Presente Selecionado', bodyHtml);
+        }
+
+        function showGiftPix(value) {
+            const bodyHtml = `
+                <div style="text-align: center;">
+                    <p style="font-size: 0.9rem; margin-bottom: 15px;">Agradecemos imensamente o seu carinho e contribuição no valor de <strong>R$ ${value}</strong>.</p>
+                    <div class="pix-box">
+                        <div class="qr-placeholder">[ QR CODE PIX - R$ ${value} ]</div>
+                        <p style="font-size: 0.8rem; font-weight: 600; color: var(--accent-gold); margin-top: 10px;">Chave Pix: 23038623709</p>
+                        <p style="font-size: 0.75rem; color: var(--color-muted);">Banco Itaú</p>
+                    </div>
+                    <button class="action-btn" onclick="copyPixAndNotify('${value}', 'Presente')">📋 Copiar Chave Pix</button>
+                </div>
+            `;
+            toggleModal(true, 'Contribuição Pix', bodyHtml);
+        }
+
+        // ABA 2: SISTEMA DE TIJOLINHOS
+        let selectedBrickValue = 0;
+
+        function selectBrick(value, element) {
+            document.querySelectorAll('.brick-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('custom-brick-amount').value = '';
+            selectedBrickValue = value;
+        }
+
+        function handleCustomBrickInput() {
+            document.querySelectorAll('.brick-card').forEach(card => card.classList.remove('selected'));
+            const customVal = parseFloat(document.getElementById('custom-brick-amount').value);
+            selectedBrickValue = customVal >= 20 ? customVal : 0;
+        }
+
+        function generateBrickPix() {
+            if (selectedBrickValue < 20) {
+                alert('A contribuição mínima para adicionar um tijolinho é de R$ 20,00.');
+                return;
+            }
+            const bodyHtml = `
+                <div style="text-align: center;">
+                    <p style="font-size: 0.9rem; margin-bottom: 15px;">Sua contribuição de <strong>R$ ${selectedBrickValue.toFixed(2)}</strong> está gerando um tijolo para nossa parede!</p>
+                    <div class="pix-box">
+                        <div class="qr-placeholder">[ QR CODE PIX - R$ ${selectedBrickValue.toFixed(2)} ]</div>
+                        <p style="font-size: 0.8rem; font-weight: 600; color: var(--accent-gold); margin-top: 10px;">Chave Pix: 23038623709</p>
+                        <p style="font-size: 0.75rem; color: var(--color-muted);">Banco Itaú</p>
+                    </div>
+                    <button class="action-btn" style="margin-bottom: 12px;" onclick="copyPix('23038623709')">📋 Copiar Chave Pix</button>
+                    <button class="action-btn secondary-btn" onclick="showBrickReceiptForm('${selectedBrickValue}')">Já realizei o pagamento</button>
+                </div>
+            `;
+            toggleModal(true, 'Adicionar Tijolinho', bodyHtml);
+        }
+
+        function showBrickReceiptForm(value) {
+            const bodyHtml = `
+                <form id="brick-form" onsubmit="submitBrickForm(event, '${value}')">
+                    <div class="form-group">
+                        <label>Seu Nome completo</label>
+                        <input type="text" id="brick-name" required placeholder="Ex: Maria Souza">
+                    </div>
+                    <div class="form-group">
+                        <label>Seu WhatsApp</label>
+                        <input type="tel" id="brick-whatsapp" required placeholder="Ex: (21) 98765-4321">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem opcional de carinho</label>
+                        <textarea id="brick-message" rows="3" placeholder="Escreva aqui sua mensagem para nosso lar..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Comprovante Pix (Upload Simulado)</label>
+                        <input type="file" id="brick-file" required accept="image/*,application/pdf">
+                    </div>
+                    <button type="submit" class="action-btn">Enviar Confirmação</button>
+                </form>
+            `;
+            toggleModal(true, 'Comprovante do Tijolo', bodyHtml);
+        }
+
+        function submitBrickForm(event, value) {
+            event.preventDefault();
+            const name = document.getElementById('brick-name').value;
+            const phone = document.getElementById('brick-whatsapp').value;
+            const message = document.getElementById('brick-message').value;
+            
+            const wsText = `Olá! Acabei de enviar um Tijolinho no valor de R$ ${value}.\n\nNome: ${name}\nWhatsApp: ${phone}\nMensagem: ${message}`;
+            window.open(`https://wa.me/5521983719151?text=${encodeURIComponent(wsText)}`, '_blank');
+            toggleModal(false);
+        }
+
+        // ABA 3: CHÁ-RIFA DINÂMICO
+        const raffleStatus = {}; // Guarda status de cada número (001 a 120)
+
+        function initRaffleGrid() {
+            const grid = document.getElementById('raffle-grid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= 120; i++) {
+                const numStr = String(i).padStart(3, '0');
+                
+                // Distribuição demonstrativa inicial estável
+                let status = 'disponivel';
+                if (i === 5 || i === 22 || i === 87) status = 'reservado';
+                if (i === 12 || i === 45 || i === 101) status = 'confirmado';
+
+                raffleStatus[numStr] = status;
+
+                const cell = document.createElement('div');
+                cell.className = `raffle-num ${status}`;
+                cell.innerText = numStr;
+                cell.onclick = () => selectRaffleNumber(numStr);
+                grid.appendChild(cell);
+            }
+        }
+
+        function selectRaffleNumber(num) {
+            const status = raffleStatus[num];
+            if (status === 'confirmado') return;
+
+            const bodyHtml = `
+                <form onsubmit="submitRaffleForm(event, '${num}')">
+                    <p style="margin-bottom: 15px; font-size: 0.9rem;">Você escolheu o número <strong style="color:var(--accent-gold); font-size: 1.1rem;">${num}</strong>. Cada cota custa apenas <strong>R$ 20,00</strong>.</p>
+                    <div class="form-group">
+                        <label>Seu Nome completo</label>
+                        <input type="text" id="raffle-name" required placeholder="Maria Souza">
+                    </div>
+                    <div class="form-group">
+                        <label>Seu WhatsApp</label>
+                        <input type="tel" id="raffle-phone" required placeholder="(21) 98765-4321">
+                    </div>
+                    <button type="submit" class="action-btn">Reservar e Pagar</button>
+                </form>
+            `;
+            toggleModal(true, `Reservar Número ${num}`, bodyHtml);
+        }
+
+        function submitRaffleForm(event, num) {
+            event.preventDefault();
+            const name = document.getElementById('raffle-name').value;
+            const phone = document.getElementById('raffle-phone').value;
+
+            const bodyHtml = `
+                <div style="text-align: center;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Sua reserva do número <strong>${num}</strong> foi registrada.</p>
+                    <div class="pix-box">
+                        <div class="qr-placeholder">[ QR CODE PIX - R$ 20,00 ]</div>
+                        <p style="font-size: 0.8rem; font-weight: 600; color: var(--accent-gold); margin-top: 10px;">Chave Pix: 23038623709</p>
+                        <p style="font-size: 0.75rem; color: var(--color-muted);">Banco Itaú</p>
+                    </div>
+                    <button class="action-btn" style="margin-bottom: 12px;" onclick="copyPix('23038623709')">📋 Copiar Chave Pix</button>
+                    <button class="action-btn secondary-btn" onclick="sendRaffleReceipt('${num}', '${name}', '${phone}')">Enviar Comprovante de Pagamento</button>
+                </div>
+            `;
+            toggleModal(true, `Pagamento Rifa: ${num}`, bodyHtml);
+        }
+
+        function sendRaffleReceipt(num, name, phone) {
+            const text = `Olá! Fiz o pagamento para a Rifa de Agradecimento.\n\nNúmero Reservado: ${num}\nNome: ${name}\nWhatsApp: ${phone}\n(Anexando comprovante...)`;
+            window.open(`https://wa.me/5521983719151?text=${encodeURIComponent(text)}`, '_blank');
+            toggleModal(false);
+        }
+
+        // FUNÇÕES AUXILIARES UTILITÁRIAS
+        function copyPix(key) {
+            navigator.clipboard.writeText(key).then(() => {
+                alert('Chave Pix copiada com sucesso!');
+            });
+        }
+
+        function copyPixAndNotify(value, source) {
+            navigator.clipboard.writeText('23038623709').then(() => {
+                alert('Chave Pix copiada! Iremos abrir seu WhatsApp para você enviar a confirmação de valor.');
+                setTimeout(() => {
+                    window.open(`https://wa.me/5521983719151?text=Olá!%20Copiei%20a%20chave%20Pix%20para%20contribuir%20com%20o%20${source}%20no%20valor%20de%20R$%20${value}.`, '_blank');
+                }, 800);
+            });
+        }
+
+        // Inicializar Grade de Rifas
+        initRaffleGrid();
+    </script>
 </body>
 </html>
-
