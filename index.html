@@ -8,19 +8,19 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garish:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- DESIGN SYSTEM & VARIÁVEIS --- */
+        /* --- DESIGN SYSTEM --- */
         :root {
-            --bg-primary: #FAF9F6; /* Off-white acolhedor */
+            --bg-primary: #FAF9F6;
             --bg-card: #FFFFFF;
-            --color-primary: #1A1A1A; /* Cinza quase preto tipográfico */
+            --color-primary: #1A1A1A;
             --color-muted: #707070;
-            --accent-gold: #C5A880; /* Dourado elegante */
+            --accent-gold: #C5A880;
             --accent-gold-hover: #AF9168;
             --border-color: #E5E5E5;
-            --font-serif: 'Cormorant Garish', serif;
+            --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Inter', sans-serif;
             --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -40,7 +40,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- TELA DE ABERTURA IMERSIVA --- */
+        /* --- ABERTURA IMERSIVA --- */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -56,18 +56,8 @@
             transition: var(--transition-smooth);
         }
 
-        .welcome-bg-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.08; /* Textura visual sutil */
-            pointer-events: none;
-        }
-
         .welcome-content {
             text-align: center;
-            z-index: 2;
             max-width: 600px;
             padding: 20px;
         }
@@ -82,15 +72,13 @@
             animation: fadeInUp 1.2s forwards 0.3s;
         }
 
-        .welcome-subtitle {
+        .welcome-text {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-style: italic;
             color: var(--color-muted);
             margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1.2s forwards 0.8s;
+            min-height: 40px;
         }
 
         .btn-enter {
@@ -102,21 +90,19 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 0;
             transition: var(--transition-smooth);
             opacity: 0;
-            animation: fadeInUp 1.2s forwards 1.3s;
+            animation: fadeInUp 1.2s forwards 2.5s;
         }
 
         .btn-enter:hover {
             background-color: var(--accent-gold);
             color: white;
-            box-shadow: 0 10px 30px rgba(197, 168, 128, 0.2);
+            box-shadow: 0 10px 30px rgba(197, 168, 128, 0.15);
         }
 
-        /* Animação de transição estilo Porta Abrindo */
         .door-open {
-            transform: scale(1.1);
+            transform: scale(1.08);
             opacity: 0 !important;
             pointer-events: none;
         }
@@ -131,7 +117,6 @@
             opacity: 1;
         }
 
-        /* Navbar Minimalista */
         nav {
             display: flex;
             justify-content: space-between;
@@ -147,9 +132,10 @@
 
         .logo {
             font-family: var(--font-serif);
-            font-size: 1.6rem;
-            font-weight: 400;
+            font-size: 1.8rem;
+            font-weight: 300;
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
         .nav-links button {
@@ -166,42 +152,15 @@
 
         .nav-links button.active, .nav-links button:hover {
             color: var(--color-primary);
-            border-bottom: 1px solid var(--accent-gold);
         }
 
-        /* Seções Gerais */
+        /* --- SEÇÕES --- */
         .section {
             padding: 100px 8%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* --- SEÇÃO HISTÓRIA (TEXTOS PROGRESSIVOS) --- */
-        .story-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        .story-phrase {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            line-height: 1.6;
-            font-weight: 300;
-            margin-bottom: 80px;
-            color: var(--color-primary);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease;
-        }
-
-        .story-phrase.scroll-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- SEÇÃO AMBIENTES (A CASA) --- */
         .section-title {
             text-align: center;
             font-family: var(--font-serif);
@@ -218,6 +177,32 @@
             margin-bottom: 60px;
         }
 
+        /* Narrativa */
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .story-phrase {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 60px;
+            color: var(--color-primary);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .story-phrase.scroll-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ambientes */
         .house-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -231,8 +216,6 @@
             text-align: center;
             cursor: pointer;
             transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
         }
 
         .room-card:hover {
@@ -250,7 +233,7 @@
         .room-name {
             font-family: var(--font-serif);
             font-size: 1.8rem;
-            font-weight: 400;
+            font-weight: 300;
             margin-bottom: 15px;
         }
 
@@ -262,7 +245,17 @@
             margin: 0 auto;
         }
 
-        /* --- MODAL DA LISTA DE PRESENTES --- */
+        /* Sorteio */
+        .sorteio-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- PAINEL LATERAL FLUIDO (MODAL) --- */
         .modal {
             position: fixed;
             top: 0;
@@ -323,7 +316,7 @@
             color: var(--color-muted);
         }
 
-        /* Grid de Itens do Presente */
+        /* Items Grid */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -348,22 +341,21 @@
         .gift-img-placeholder {
             width: 100%;
             height: 120px;
-            background: #F5F5F5;
+            background: #F2F0EB;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
-            color: #C0C0C0;
-            font-size: 0.8rem;
-            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: var(--color-muted);
             letter-spacing: 1px;
-            border: 1px dashed #E0E0E0;
+            text-transform: uppercase;
         }
 
         .gift-name {
             font-size: 1rem;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .gift-desc {
@@ -373,25 +365,40 @@
             line-height: 1.4;
         }
 
-        .gift-status-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
+        /* Contador de Unidades Repetidas */
+        .gift-progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #EAE8E3;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .gift-progress-fill {
+            height: 100%;
+            background: var(--accent-gold);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .gift-progress-text {
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            margin-bottom: 10px;
         }
 
         .status-badge {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .status-available { color: #2E7D32; }
         .status-reserved { color: #F57C00; }
         .status-taken { color: var(--accent-gold); }
 
-        .btn-action-gift {
+        .btn-presentear {
             background: var(--color-primary);
             color: white;
             border: none;
@@ -400,24 +407,16 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
 
-        .btn-action-gift:hover {
+        .btn-presentear:hover {
             background: var(--accent-gold);
         }
 
-        /* --- DETALHE INTERATIVO DO PRESENTEAR (PASSO 2) --- */
+        /* --- FLUXO DE PAGAMENTO/ENTREGA --- */
         .checkout-box {
             display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .checkout-title {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            margin-bottom: 25px;
-            font-weight: 400;
         }
 
         .option-card {
@@ -433,34 +432,12 @@
             border-color: var(--accent-gold);
         }
 
-        .option-card h4 {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .pix-area, .delivery-area {
             display: none;
             background: #FFF;
             border: 1px solid var(--border-color);
             padding: 30px;
             margin-top: 20px;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .qr-placeholder {
-            width: 150px;
-            height: 150px;
-            background: #eee;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: #666;
-            border: 1px solid #ddd;
         }
 
         .pix-key-box {
@@ -470,7 +447,6 @@
             text-align: center;
             font-size: 0.9rem;
             margin-bottom: 15px;
-            word-break: break-all;
         }
 
         .form-group {
@@ -491,152 +467,121 @@
             padding: 10px;
             border: 1px solid var(--border-color);
             outline: none;
-            font-size: 0.9rem;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             border-color: var(--accent-gold);
         }
 
-        /* --- SEÇÃO CHÁ-RIFA --- */
-        .rifa-container {
+        /* --- PAINEL ADMINISTRATIVO --- */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 60px 40px;
-        }
-
-        .rifa-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 50px;
-        }
-
-        .rifa-rules h3 {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .rifa-rules ul {
-            list-style: none;
-        }
-
-        .rifa-rules li {
-            font-size: 0.9rem;
-            color: var(--color-muted);
-            margin-bottom: 15px;
-            line-height: 1.6;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .rifa-rules li::before {
-            content: "•";
-            color: var(--accent-gold);
-            position: absolute;
-            left: 0;
-            font-size: 1.2rem;
-            top: -2px;
-        }
-
-        .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 10px;
-        }
-
-        .num-cell {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 500;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .num-cell:hover {
-            border-color: var(--accent-gold);
-            transform: scale(1.05);
-        }
-
-        .num-available { background: #FFFFFF; color: var(--color-primary); }
-        .num-reserved { background: #FFF3E0; color: #E65100; border-color: #FFE0B2; }
-        .num-confirmed { background: #E8F5E9; color: #2E7D32; border-color: #C8E6C9; cursor: not-allowed; }
-
-        /* --- SEÇÃO MULTIPARTICIPAÇÃO --- */
-        .participation-notice {
+            padding: 25px;
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.85rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
             color: var(--color-muted);
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* --- ANIMAÇÕES KEYFRAMES --- */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #FFF;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-table th {
+            background: #F5F5F5;
+            font-weight: 500;
+        }
+
+        .btn-table {
+            padding: 5px 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        /* --- KEYFRAMES --- */
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
 
-        /* Responsive */
         @media(max-width: 992px) {
             .house-grid { grid-template-columns: 1fr; }
-            .rifa-info-grid { grid-template-columns: 1fr; }
-            .modal-content { width: 85%; min-width: auto; }
-            .numbers-grid { grid-template-columns: repeat(5, 1fr); }
+            .modal-content { width: 90%; min-width: auto; }
+            .items-grid { grid-template-columns: 1fr; }
+            .admin-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- TELA DE ABERTURA IMERSIVA -->
+    <!-- ABERTURA IMERSIVA -->
     <div id="welcome-screen">
         <div class="welcome-content">
             <h1 class="welcome-title">Um Lar, Um Recomeço</h1>
-            <p class="welcome-subtitle">Cada detalhe representa um novo começo.</p>
+            <p class="welcome-text" id="dynamic-welcome-text"></p>
             <button class="btn-enter" onclick="enterHome()">✨ Entrar</button>
         </div>
     </div>
 
-    <!-- ESTRUTURA PRINCIPAL DO SITE -->
+    <!-- MAIN CONTENT -->
     <div id="main-content">
-        
         <nav>
-            <div class="logo">Meu Lar.</div>
+            <div class="logo" onclick="scrollToSection('story-section')">Meu Lar.</div>
             <div class="nav-links">
-                <button class="active" onclick="scrollToSection('story-section')">Meu Recomeço</button>
                 <button onclick="scrollToSection('house-section')">A Casa</button>
-                <button onclick="scrollToSection('rifa-section')">Chá-Rifa</button>
+                <button onclick="scrollToSection('sorteio-section')">Sorteio</button>
+                <button onclick="openAdminModal()">Painel Admin</button>
             </div>
         </nav>
 
-        <!-- SEÇÃO NARRATIVA PROGRESSIVA -->
+        <!-- NARRATIVA -->
         <section id="story-section" class="section">
             <div class="story-container">
-                <p class="story-phrase">Recomeçar nunca foi fácil.</p>
-                <p class="story-phrase">Mas continuar sempre foi uma escolha.</p>
+                <p class="story-phrase">Toda casa começa vazia.</p>
+                <p class="story-phrase">Mas todo sonho merece um novo começo.</p>
                 <p class="story-phrase">Hoje estou construindo meu lar.</p>
-                <p class="story-phrase">E cada pessoa que passa por aqui faz parte dessa história.</p>
+                <p class="story-phrase">E cada detalhe representa um novo começo.</p>
             </div>
         </section>
 
-        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.03); max-width: 84%; margin: 0 auto;">
-
-        <!-- SEÇÃO AMBIENTES (A CASA) -->
+        <!-- AMBIENTES -->
         <section id="house-section" class="section">
             <h2 class="section-title">Os Ambientes</h2>
-            <p class="section-subtitle">Escolha um cômodo para entrar e conhecer os detalhes.</p>
+            <p class="section-subtitle">Toque em um ambiente para entrar e ajudar a completá-lo.</p>
             
             <div class="house-grid">
                 <div class="room-card" onclick="openRoom('Cozinha')">
@@ -647,272 +592,301 @@
                 <div class="room-card" onclick="openRoom('Quarto')">
                     <span class="room-icon">🛏️</span>
                     <h3 class="room-name">Quarto</h3>
-                    <p class="room-desc">"O refúgio onde os sonhos e o descanso encontram seu espaço sagrado."</p>
+                    <p class="room-desc">"O meu espaço sagrado de descanso e renovação diária."</p>
                 </div>
                 <div class="room-card" onclick="openRoom('Sala')">
                     <span class="room-icon">🛋️</span>
                     <h3 class="room-name">Sala</h3>
-                    <p class="room-desc">"O espaço de acolhimento para receber memórias e instantes de paz."</p>
+                    <p class="room-desc">"Onde acolherei momentos especiais, paz e boas memórias."</p>
                 </div>
                 <div class="room-card" onclick="openRoom('Banheiro')">
                     <span class="room-icon">🚿</span>
                     <h3 class="room-name">Banheiro</h3>
-                    <p class="room-desc">"Onde o cuidado pessoal e a renovação de cada dia acontecem."</p>
+                    <p class="room-desc">"O espaço para o cuidado pessoal diário com delicadeza."</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO CHÁ-RIFA E AGRADECIMENTO -->
-        <section id="rifa-section" class="section">
-            <h2 class="section-title">Chá-Rifa Especial</h2>
-            <p class="section-subtitle">Uma forma interativa e leve de construir esse sonho comigo.</p>
-            
-            <div class="rifa-container">
-                <div class="rifa-info-grid">
-                    <div class="rifa-rules">
-                        <h3>🎉 Um agradecimento especial</h3>
-                        <p style="font-size: 0.95rem; color: var(--color-muted); line-height: 1.6; margin-bottom: 25px;">
-                            Como forma de agradecer todo o carinho recebido durante essa caminhada, quando a meta do projeto estiver concluída, realizarei um sorteio de **R$ 400,00** entre todos os participantes da Chá-Rifa.
-                        </p>
-                        <ul>
-                            <li>O sorteio acontecerá somente quando a meta estiver 100% concluída.</li>
-                            <li>Cada número da Chá-Rifa equivale a uma chance no sorteio.</li>
-                            <li>Quanto mais números você escolher, maiores as suas chances.</li>
-                            <li>A data do sorteio será divulgada após a conclusão da meta.</li>
-                            <li>O sorteio será realizado de forma totalmente transparente.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <div style="display:flex; gap:15px; margin-bottom:20px; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.5px;">
-                            <span><span style="color:#1A1A1A">⚪</span> Disponível</span>
-                            <span><span style="color:#F57C00">🟡</span> Reservado</span>
-                            <span><span style="color:#2E7D32">🟢</span> Confirmado</span>
-                        </div>
-                        <div class="numbers-grid" id="rifa-numbers-container">
-                            <!-- Gerado dinamicamente via JS -->
-                        </div>
-                    </div>
-                </div>
+        <!-- SORTEIO -->
+        <section id="sorteio-section" class="section">
+            <div class="sorteio-box">
+                <h2 class="section-title" style="font-size: 2.2rem;">🎉 Sorteio de Agradecimento</h2>
+                <p style="color: var(--color-muted); line-height: 1.8; margin-top: 20px; font-size: 1rem;">
+                    Como forma de agradecer todo o carinho recebido durante essa caminhada, todas as pessoas que presentearem um item ou contribuírem com o valor de um presente participarão automaticamente do sorteio de **R$ 400,00**, que será realizado quando a meta do projeto for concluída.
+                </p>
+                <p style="color: var(--accent-gold); font-weight: 500; margin-top: 20px; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">
+                    Cada presente confirmado pelo painel equivale a uma participação automática!
+                </p>
             </div>
-            <p class="participation-notice">✨ Você pode participar quantas vezes desejar, escolhendo múltiplos itens ou cotas sem restrições.</p>
         </section>
-
     </div>
 
-    <!-- PAINEL LATERAL FLUIDO (MODAL DO AMBIENTE / PRODUTO) -->
-    <div id="side-modal" class="modal" onclick="closeModalOnOutsideClick(event)">
+    <!-- MODAL PRINCIPAL DOS PRESENTES -->
+    <div id="gift-modal" class="modal" onclick="closeOnOutside(event, 'gift-modal')">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-room-title">Ambiente</h3>
-                <button class="close-modal" onclick="closeModal()">✕</button>
+                <h3 class="modal-title" id="modal-room-title">Cozinha</h3>
+                <button class="close-modal" onclick="closeModal('gift-modal')">✕</button>
             </div>
             
-            <!-- Lista de itens do ambiente -->
-            <div id="modal-view-items" class="items-grid"></div>
+            <div id="modal-items-view" class="items-grid"></div>
 
-            <!-- Fluxo de Confirmação (Checkout) -->
-            <div id="modal-view-checkout" class="checkout-box">
-                <button onclick="backToItems()" style="background:none; border:none; cursor:pointer; color:var(--accent-gold); font-size:0.85rem; margin-bottom:20px; letter-spacing:0.5px;">← Voltar para a lista</button>
-                <h3 class="checkout-title" id="checkout-product-name">Nome do Presente</h3>
+            <!-- Formulário Interativo de Envio -->
+            <div id="modal-checkout-view" class="checkout-box">
+                <button onclick="backToItems()" style="background:none; border:none; color:var(--accent-gold); margin-bottom:20px; cursor:pointer; font-weight:500;">← Voltar</button>
+                <h3 id="checkout-item-name" class="modal-title" style="font-size: 1.8rem; margin-bottom: 20px;">Item</h3>
                 
-                <p style="font-size:0.9rem; color:var(--color-muted); margin-bottom:30px;">Como deseja presentear?</p>
-                
-                <div class="option-card" onclick="selectGiftOption('delivery')">
-                    <h4>🎁 Quero comprar este presente e entregar pessoalmente.</h4>
+                <div class="option-card" onclick="selectFlow('delivery')">
+                    <h4>🎁 Quero entregar este presente pessoalmente</h4>
+                </div>
+                <div class="option-card" onclick="selectFlow('pix')">
+                    <h4>💛 Prefiro contribuir com o valor deste presente</h4>
                 </div>
 
-                <div class="option-card" onclick="selectGiftOption('pix')">
-                    <h4>💛 Prefiro contribuir com o valor deste presente via Pix.</h4>
+                <!-- Fluxo Delivery -->
+                <div id="flow-delivery" class="delivery-area">
+                    <p style="font-size:0.9rem; color:var(--color-muted); margin-bottom: 20px;">Você será redirecionado para combinar a entrega diretamente pelo meu WhatsApp.</p>
+                    <button class="btn-presentear" style="width:100%; padding:15px;" id="whatsapp-redirect-btn">Prosseguir no WhatsApp</button>
                 </div>
 
-                <!-- Painel Entrega Pessoal -->
-                <div id="area-delivery" class="delivery-area">
-                    <p style="font-size: 0.95rem; margin-bottom: 15px;">Combine diretamente comigo pelo WhatsApp para a entrega física:</p>
-                    <a href="https://wa.me/5521983719151" target="_blank" style="font-size: 1.2rem; font-weight: 500; color: var(--color-primary); text-decoration: none; border-bottom: 1px dashed var(--accent-gold);">(21) 98371-9151</a>
-                </div>
-
-                <!-- Painel Pix -->
-                <div id="area-pix" class="pix-area">
-                    <p style="font-size:0.9rem; color:var(--color-muted);">Escaneie o QR Code ou copie a chave abaixo:</p>
-                    <div class="qr-placeholder">[ QR Code Pix - Banco Itaú ]</div>
+                <!-- Fluxo Pix -->
+                <div id="flow-pix" class="pix-area">
+                    <p style="font-size:0.9rem; color:var(--color-muted); margin-bottom:15px;">Escaneie o QR Code ou copie a chave Pix Itaú abaixo:</p>
+                    <div style="width:140px; height:140px; background:#DDD; margin:0 auto 15px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#666;">[ QR Code Pix ]</div>
                     <div class="pix-key-box" id="pix-key">23038623709</div>
-                    <button class="btn-action-gift" style="width:100%; padding:12px; margin-bottom:25px;" onclick="copyPixKey()">📋 Copiar chave Pix</button>
+                    <button class="btn-presentear" style="width:100%; padding:10px; margin-bottom:25px; background:#333;" onclick="copyPix()">Copiar Chave Pix</button>
                     
-                    <hr style="border:0; border-top:1px solid var(--border-color); margin:20px 0;">
-                    
-                    <h4 style="font-size:0.9rem; margin-bottom:15px;">✅ Já realizei o pagamento</h4>
-                    
+                    <h4 style="margin-bottom:15px; font-size:1rem;">Já realizei o pagamento:</h4>
                     <div class="form-group">
-                        <label>Seu Nome Completo</label>
-                        <input type="text" placeholder="Ex: Maria Silva">
+                        <label>Seu Nome</label>
+                        <input type="text" id="form-name" required>
                     </div>
                     <div class="form-group">
                         <label>Seu WhatsApp</label>
-                        <input type="text" placeholder="Ex: (21) 99999-9999">
+                        <input type="text" id="form-phone" required>
                     </div>
                     <div class="form-group">
-                        <label>Comprovante de Pagamento</label>
-                        <input type="file" accept="image/*,.pdf" style="border:none; padding:5px 0;">
+                        <label>Comprovante (Imagem/PDF)</label>
+                        <input type="file" id="form-comprovante" accept="image/*,.pdf" required>
                     </div>
                     <div class="form-group">
-                        <label>Deixe uma mensagem carinhosa (Opcional)</label>
-                        <textarea rows="3" placeholder="Escreva uma mensagem para o meu novo lar..."></textarea>
+                        <label>Mensagem Opcional</label>
+                        <textarea id="form-msg" rows="3"></textarea>
                     </div>
-                    <button class="btn-action-gift" style="width:100%; padding:14px; background:var(--accent-gold);" onclick="finishGiftOrder()">Confirmar Envio</button>
+                    <button class="btn-presentear" style="width:100%; padding:15px; background:var(--accent-gold);" onclick="submitPixForm()">Confirmar Envio</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DO NÚMERO DA RIFA -->
-    <div id="rifa-modal" class="modal" onclick="closeRifaModalOnOutsideClick(event)">
-        <div class="modal-content" style="width:40%; min-width:450px;">
+    <!-- MODAL ADMIN -->
+    <div id="admin-modal" class="modal" onclick="closeOnOutside(event, 'admin-modal')">
+        <div class="modal-content" style="width: 80%;">
             <div class="modal-header">
-                <h3 class="modal-title">Número <span id="rifa-chosen-number">00</span></h3>
-                <button class="close-modal" onclick="closeRifaModal()">✕</button>
-            </div>
-            <div style="margin-bottom:20px;">
-                <p style="font-size:0.95rem; margin-bottom:5px;">Cota de contribuição:</p>
-                <span style="font-size:1.4rem; font-weight:500; color:var(--accent-gold);">Valor da Cota</span>
+                <h3 class="modal-title">Painel Administrativo</h3>
+                <button class="close-modal" onclick="closeModal('admin-modal')">✕</button>
             </div>
             
-            <div class="form-group">
-                <label>Seu Nome</label>
-                <input type="text" id="rifa-name" placeholder="Nome completo">
-            </div>
-            <div class="form-group">
-                <label>Seu WhatsApp</label>
-                <input type="text" id="rifa-phone" placeholder="(21) 99999-9999">
+            <div id="admin-auth">
+                <p style="margin-bottom:15px;">Para acessar o painel de estatísticas e gestão, insira a sua senha:</p>
+                <div class="form-group" style="max-width:300px;">
+                    <input type="password" id="admin-pass" placeholder="Sua senha de acesso">
+                </div>
+                <button class="btn-presentear" onclick="authAdmin()">Entrar no Painel</button>
             </div>
 
-            <div style="margin-top:30px; background:#FFF; border:1px solid var(--border-color); padding:20px;">
-                <p style="font-size:0.85rem; color:var(--color-muted); text-align:center;">Pagamento via Pix (Itaú)</p>
-                <div class="qr-placeholder">[ QR Code Cota ]</div>
-                <div class="pix-key-box">23038623709</div>
-                <button class="btn-action-gift" style="width:100%; padding:10px; margin-bottom:15px;" onclick="navigator.clipboard.writeText('23038623709'); alert('Chave Pix copiada!')">Copiar Chave Pix</button>
-                
-                <div class="form-group" style="margin-top:15px;">
-                    <label>Upload do Comprovante</label>
-                    <input type="file" accept="image/*,.pdf">
+            <div id="admin-dashboard" style="display:none;">
+                <!-- ESTATÍSTICAS EM TEMPO REAL -->
+                <div class="admin-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-completed">0</div>
+                        <div class="stat-label">Concluídos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-available">0</div>
+                        <div class="stat-label">Disponíveis</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-participants">0</div>
+                        <div class="stat-label">Participantes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-percent">0%</div>
+                        <div class="stat-label">Completado</div>
+                    </div>
                 </div>
-                <button class="btn-action-gift" style="width:100%; padding:12px; background:var(--accent-gold);" onclick="submitRifaCota()">Enviar Comprovante</button>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h4 class="modal-title" style="font-size:1.5rem;">Gestão de Presentes</h4>
+                    <button class="btn-presentear" style="background:#2E7D32;" onclick="exportSorteio()">Exportar Participantes do Sorteio (CSV)</button>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Presente</th>
+                                <th>Ambiente</th>
+                                <th>Pessoa</th>
+                                <th>WhatsApp</th>
+                                <th>Tipo</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- LÓGICA DE INTERAÇÃO -->
+    <!-- MOTOR DE FUNCIONAMENTO (JAVASCRIPT) -->
     <script>
-        // Transição da tela inicial (Porta Abrindo)
+        // Animação de entrada na abertura
+        const welcomeTexts = [
+            "Toda casa começa vazia.",
+            "Mas todo sonho merece um novo começo."
+        ];
+        let currentTextIdx = 0;
+        const textEl = document.getElementById("dynamic-welcome-text");
+
+        function typeWelcome() {
+            if (currentTextIdx < welcomeTexts.length) {
+                textEl.style.opacity = 0;
+                setTimeout(() => {
+                    textEl.innerText = welcomeTexts[currentTextIdx];
+                    textEl.style.opacity = 1;
+                    textEl.style.transition = "opacity 1s ease";
+                    currentTextIdx++;
+                    setTimeout(typeWelcome, 3000);
+                }, 1000);
+            }
+        }
+        typeWelcome();
+
         function enterHome() {
-            const welcome = document.getElementById('welcome-screen');
-            const main = document.getElementById('main-content');
-            welcome.classList.add('door-open');
-            main.classList.add('visible');
-            setTimeout(() => welcome.style.display = 'none', 600);
+            document.getElementById('welcome-screen').classList.add('door-open');
+            document.getElementById('main-content').classList.add('visible');
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+            }, 600);
         }
 
-        // Navegação suave interna
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
         }
 
-        // Animação progressiva de textos (Scroll)
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.story-phrase').forEach(el => {
-                const pos = el.getBoundingClientRect().top;
-                if(pos < window.innerHeight * 0.85) el.classList.add('scroll-visible');
-            });
-        });
+        // --- SISTEMA DE DADOS DOS PRESENTES (DATABASE) ---
+        // Cozinha, Quarto, Banheiro e Sala.
+        const defaultGifts = [
+            // Cozinha
+            { id: 1, room: "Cozinha", name: "Jogo de Pratos", desc: "Porcelana branca minimalista ou cinza escuro.", total: 3, confirmed: 0, items: [] },
+            { id: 2, room: "Cozinha", name: "Jogo de Copos", desc: "Copos de vidro liso transparente.", total: 3, confirmed: 0, items: [] },
+            { id: 3, room: "Cozinha", name: "Jogo de Sobremesa", desc: "Vidro temperado transparente.", total: 2, confirmed: 0, items: [] },
+            { id: 4, room: "Cozinha", name: "Jogo de Xícaras", desc: "Xícaras minimalistas pretas ou brancas.", total: 2, confirmed: 0, items: [] },
+            { id: 5, room: "Cozinha", name: "Faqueiro", desc: "Inox de alta qualidade sem detalhes coloridos.", total: 1, confirmed: 0, items: [] },
+            { id: 6, room: "Cozinha", name: "Talheres", desc: "Inox escovado elegante.", total: 1, confirmed: 0, items: [] },
+            { id: 7, room: "Cozinha", name: "Colheres de Silicone", desc: "Tonalidade preta ou cinza.", total: 1, confirmed: 0, items: [] },
+            { id: 8, room: "Cozinha", name: "Colher de Pau", desc: "Madeira clara tratada.", total: 1, confirmed: 0, items: [] },
+            { id: 9, room: "Cozinha", name: "Espátulas de Silicone", desc: "Acrílico ou silicone cinza escuro.", total: 1, confirmed: 0, items: [] },
+            { id: 10, room: "Cozinha", name: "Conchas", desc: "Concha tradicional em aço inox.", total: 1, confirmed: 0, items: [] },
+            { id: 11, room: "Cozinha", name: "Pegador de Massa", desc: "Inox polido.", total: 1, confirmed: 0, items: [] },
+            { id: 12, room: "Cozinha", name: "Escumadeira", desc: "Estrutura forte em inox.", total: 1, confirmed: 0, items: [] },
+            { id: 13, room: "Cozinha", name: "Peneira", desc: "Tela fina em aço inox.", total: 1, confirmed: 0, items: [] },
+            { id: 14, room: "Cozinha", name: "Ralador", desc: "Inox com base de apoio firme.", total: 1, confirmed: 0, items: [] },
+            { id: 15, room: "Cozinha", name: "Abridor de Latas", desc: "Estrutura metálica robusta.", total: 1, confirmed: 0, items: [] },
+            { id: 16, room: "Cozinha", name: "Escorredor de Arroz", desc: "Aço inoxidável perfurado.", total: 1, confirmed: 0, items: [] },
+            { id: 17, room: "Cozinha", name: "Escorredor de Macarrão", desc: "Inox elegante.", total: 1, confirmed: 0, items: [] },
+            { id: 18, room: "Cozinha", name: "Tábua de Carne", desc: "Madeira clara ou bambu natural.", total: 1, confirmed: 0, items: [] },
+            { id: 19, room: "Cozinha", name: "Assadeira", desc: "Material em inox ou vidro temperado.", total: 1, confirmed: 0, items: [] },
+            { id: 20, room: "Cozinha", name: "Forma de Bolo", desc: "Redonda com furo, em inox.", total: 1, confirmed: 0, items: [] },
+            { id: 21, room: "Cozinha", name: "Travessas", desc: "Vidro refratário transparente.", total: 1, confirmed: 0, items: [] },
+            { id: 22, room: "Cozinha", name: "Bowls", desc: "Bowls de inox ou vidro para preparo.", total: 1, confirmed: 0, items: [] },
+            { id: 23, room: "Cozinha", name: "Tigelas", desc: "Tigelas de servir em cerâmica branca.", total: 1, confirmed: 0, items: [] },
+            { id: 24, room: "Cozinha", name: "Garrafa Térmica", desc: "Design minimalista nas cores preta ou branca.", total: 1, confirmed: 0, items: [] },
+            { id: 25, room: "Cozinha", name: "Cafeteira", desc: "Cafeteira elétrica clean em inox.", total: 1, confirmed: 0, items: [] },
+            { id: 26, room: "Cozinha", name: "Chaleira", desc: "Estrutura metálica moderna em inox.", total: 1, confirmed: 0, items: [] },
+            { id: 27, room: "Cozinha", name: "Liquidificador", desc: "Modelo nas cores preto, branco ou inox.", total: 1, confirmed: 0, items: [] },
+            { id: 28, room: "Cozinha", name: "Sanduicheira", desc: "Design compacto inox e preto.", total: 1, confirmed: 0, items: [] },
+            { id: 29, room: "Cozinha", name: "Torradeira", desc: "Aço escovado ou branca.", total: 1, confirmed: 0, items: [] },
+            { id: 30, room: "Cozinha", name: "Espremedor de Frutas", desc: "Acabamento preto ou inox de mesa.", total: 1, confirmed: 0, items: [] },
+            { id: 31, room: "Cozinha", name: "Panos de Prato", desc: "Algodão puro em tons de branco ou cinza.", total: 1, confirmed: 0, items: [] },
+            { id: 32, room: "Cozinha", name: "Toalha de Mesa", desc: "Tecido linho cor crua, bege ou cinza.", total: 1, confirmed: 0, items: [] },
+            { id: 33, room: "Cozinha", name: "Fruteira para Mesa", desc: "Aramado preto ou inox de mesa.", total: 1, confirmed: 0, items: [] },
+            { id: 34, room: "Cozinha", name: "Kit de Potes Herméticos para Mantimentos", desc: "Conjunto único em acrílico para Arroz, Feijão, Açúcar, Sal, Macarrão, Farinha e Biscoitos.", total: 1, confirmed: 0, items: [] },
+            { id: 35, room: "Cozinha", name: "Porta-Sabão em Pó", desc: "Organizador em acrílico transparente.", total: 1, confirmed: 0, items: [] },
+            { id: 36, room: "Cozinha", name: "Porta-Amaciante", desc: "Recipiente transparente clean.", total: 1, confirmed: 0, items: [] },
+            { id: 37, room: "Cozinha", name: "Porta-Sabão Líquido", desc: "Recipiente transparente de lavanderia.", total: 1, confirmed: 0, items: [] },
+            { id: 38, room: "Cozinha", name: "Porta-Detergente", desc: "Suporte minimalista para bancada.", total: 1, confirmed: 0, items: [] },
+            { id: 39, room: "Cozinha", name: "Dispenser com Porta-Esponja", desc: "Em acrílico ou cerâmica preta/branca.", total: 1, confirmed: 0, items: [] },
+            { id: 40, room: "Cozinha", name: "Organizadores Transparentes para Geladeira", desc: "Kit de acrílico para organizar alimentos.", total: 1, confirmed: 0, items: [] },
+            { id: 41, room: "Cozinha", name: "Potes para Armazenar Carnes", desc: "Potes organizadores para freezer ou geladeira.", total: 1, confirmed: 0, items: [] },
+            { id: 42, room: "Cozinha", name: "Organizadores para Frutas e Legumes", desc: "Gaveteiros em acrílico transparente.", total: 1, confirmed: 0, items: [] },
 
-        // Banco de Dados da Lista de Presentes Totalmente Alinhada com os Requisitos
-        const database = {
-            Cozinha: [
-                { id: 1, name: "Jogo de Pratos (3 unidades)", desc: "Linha cerâmica off-white minimalista.", status: "available" },
-                { id: 2, name: "Jogo de Copos (3 unidades)", desc: "Vidro transparente lapidado.", status: "available" },
-                { id: 3, name: "Jogo de Sobremesa (2 unidades)", desc: "Vidro ou porcelana branca clean.", status: "available" },
-                { id: 4, name: "Jogo de Xícaras (2 unidades)", desc: "Porcelana branca elegante.", status: "available" },
-                { id: 5, name: "Faqueiro Completo", desc: "Aço inox polido de alta qualidade.", status: "available" },
-                { id: 6, name: "Conjunto de Talheres", desc: "Uso diário, acabamento clean.", status: "available" },
-                { id: 7, name: "Colheres de Silicone", desc: "Livre de BPA, tonalidade cinza ou off-white.", status: "available" },
-                { id: 8, name: "Colher de Pau", desc: "Madeira clara tratada.", status: "available" },
-                { id: 9, name: "Conjunto de Espátulas", desc: "Silicone e inox para preparos gerais.", status: "available" },
-                { id: 10, name: "Conchas", desc: "Aço inoxidável clássico.", status: "available" },
-                { id: 11, name: "Pegador de Massa", desc: "Inox escovado premium.", status: "available" },
-                { id: 12, name: "Escumadeira", desc: "Utensílio essencial em inox.", status: "available" },
-                { id: 13, name: "Peneira Fina", desc: "Aço inox durável.", status: "available" },
-                { id: 14, name: "Ralador Multiúso", desc: "Inox com base antiderrapante.", status: "available" },
-                { id: 15, name: "Abridor de Latas e Garrafas", desc: "Design moderno e funcional.", status: "available" },
-                { id: 16, name: "Escorredor de Arroz", desc: "Aço inox perfurado.", status: "available" },
-                { id: 17, name: "Escorredor de Macarrão", desc: "Inox com alças laterais.", status: "available" },
-                { id: 18, name: "Tábua de Corte", desc: "Madeira clara ou bambu natural.", status: "available" },
-                { id: 19, name: "Assadeira Retangular", desc: "Metal escuro ou alumínio polido.", status: "available" },
-                { id: 20, name: "Forma de Bolo", desc: "Redonda com furo central.", status: "available" },
-                { id: 21, name: "Travessas de Vidro", desc: "Vidro refratário transparente.", status: "available" },
-                { id: 22, name: "Conjunto de Bowls", desc: "Para misturas e guarnições, neutros.", status: "available" },
-                { id: 23, name: "Tigelas de Porcelana", desc: "Cor branca ou off-white.", status: "available" },
-                { id: 24, name: "Jarra de Suco/Água", desc: "Vidro espesso transparente.", status: "available" },
-                { id: 25, name: "Garrafa Térmica", desc: "Design minimalista, preta ou branca.", status: "available" },
-                { id: 26, name: "Cafeteira Tradicional", desc: "Detalhes em preto ou inox.", status: "available" },
-                { id: 27, name: "Chaleira Elétrica/Comum", desc: "Acabamento em inox ou branco.", status: "available" },
-                { id: 28, name: "Liquidificador", desc: "Modelo clean nas cores preta ou branca.", status: "available" },
-                { id: 29, name: "Sanduicheira", desc: "Acabamento preto e inox compacto.", status: "available" },
-                { id: 30, name: "Torradeira", desc: "Design moderno minimalista.", status: "available" },
-                { id: 31, name: "Espremedor de Frutas", desc: "Linha prática nas cores neutras.", status: "available" },
-                { id: 32, name: "Panos de Prato (Kit)", desc: "Algodão puro sem estampas chamativas.", status: "available" },
-                { id: 33, name: "Toalha de Mesa", desc: "Linho ou algodão cor bege/cru.", status: "available" },
-                { id: 34, name: "Fruteira de Mesa", desc: "Estrutura aramada preta ou inox.", status: "available" },
-                { id: 35, name: "Kit de Potes Herméticos Completo", desc: "Conjunto único em acrílico transparente para arroz, feijão, açúcar, sal, macarrão, biscoitos e farinha.", status: "available" },
-                { id: 36, name: "Porta-Sabão em Pó e Amaciante", desc: "Recipientes organizadores transparentes.", status: "available" },
-                { id: 37, name: "Porta-Sabão Líquido e Detergente", desc: "Dispenser integrado com suporte para esponja.", status: "available" },
-                { id: 38, name: "Organizadores de Geladeira (Kit)", desc: "Acrílico transparente para frutas, legumes e frios.", status: "available" },
-                { id: 39, name: "Potes para Armazenamento de Carnes", desc: "Fechamento hermético seguro e limpo.", status: "available" }
-            ],
-            Quarto: [
-                { id: 40, name: "Jogo de Lençol de Casal", desc: "Percal de tons neutros lisos.", status: "available" },
-                { id: 41, name: "Cobertor Confort", desc: "Gramatura macia em cinza ou bege.", status: "available" },
-                { id: 42, name: "Edredom Acolhedor", desc: "Dupla face nas cores branco e cinza.", status: "available" },
-                { id: 43, name: "Kit de Fronhas Extra", desc: "Algodão macio, cores sólidas.", status: "available" },
-                { id: 44, name: "Travesseiros Ortopédicos/Macios", desc: "Suporte ideal para o descanso.", status: "available" },
-                { id: 45, name: "Manta Decorativa para Cama", desc: "Textura tricot na cor cru/bege.", status: "available" },
-                { id: 46, name: "Kit de Cabides Padronizados", desc: "Madeira clara ou veludo preto.", status: "available" },
-                { id: 47, name: "Cortina Blackout/Leve", desc: "Tons claros para controle de iluminação.", status: "available" },
-                { id: 48, name: "Tapete Macio de Quarto", desc: "Estilo escandinavo minimalista.", status: "available" },
-                { id: 49, name: "Cesto de Roupa Suja", desc: "Design em corda de algodão ou linho.", status: "available" }
-            ],
-            Banheiro: [
-                { id: 50, name: "Toalhas de Banho (2 unidades)", desc: "Algodão egípcio felpudo branco.", status: "available" },
-                { id: 51, name: "Toalhas de Rosto (2 unidades)", desc: "Combinando com o jogo de banho.", status: "available" },
-                { id: 52, name: "Tapete de Banheiro", desc: "Antiderrapante de alta absorção.", status: "available" },
-                { id: 53, name: "Lixeira com Pedal", desc: "Inox escovado ou acabamento fosco.", status: "available" },
-                { id: 54, name: "Kit Acessórios de Bancada", desc: "Porta-sabonete líquido e porta-escovas em cerâmica.", status: "available" },
-                { id: 55, name: "Porta-Papel Higiênico", desc: "Suporte minimalista de chão ou parede.", status: "available" }
-            ],
-            Sala: [
-                { id: 56, name: "Almofadas Decorativas (2 unidades)", desc: "Capas em linho texturizado neutro.", status: "available" },
-                { id: 57, name: "Manta para Sofá", desc: "Tons de cinza ou bege com franjas sutis.", status: "available" },
-                { id: 58, name: "Tapete de Sala Principal", desc: "Desenho geométrico leve ou liso.", status: "available" },
-                { id: 59, name: "Cortina Fluida para Sala", desc: "Tecido leve que permite passagem de claridade.", status: "available" },
-                { id: 60, name: "Porta-Retrato Minimalista", desc: "Moldura fina em metal preto ou madeira.", status: "available" },
-                { id: 61, name: "Bandeja Decorativa", desc: "Acabamento espelhado ou madeira clara.", status: "available" },
-                { id: 62, name: "Vaso Decorativo Moderno", desc: "Cerâmica fosca branca ou vidro texturizado.", status: "available" }
-            ]
-        };
+            // Quarto
+            { id: 43, room: "Quarto", name: "Jogo de Lençol", desc: "Tons de cinza liso, branco ou bege.", total: 1, confirmed: 0, items: [] },
+            { id: 44, room: "Quarto", name: "Cobertor", desc: "Modelo macio, cor sólida neutra.", total: 1, confirmed: 0, items: [] },
+            { id: 45, room: "Quarto", name: "Edredom", desc: "Acolchoado em tons suaves de cinza.", total: 1, confirmed: 0, items: [] },
+            { id: 46, room: "Quarto", name: "Fronhas", desc: "Algodão 200 fios cor cinza ou branca.", total: 1, confirmed: 0, items: [] },
+            { id: 47, room: "Quarto", name: "Travesseiros", desc: "Enchimento firme em espuma de alta qualidade.", total: 1, confirmed: 0, items: [] },
+            { id: 48, room: "Quarto", name: "Manta", desc: "Manta de tricot decorativa em tons bege.", total: 1, confirmed: 0, items: [] },
+            { id: 49, room: "Quarto", name: "Cabides", desc: "Kit de cabides de veludo preto.", total: 1, confirmed: 0, items: [] },
+            { id: 50, room: "Quarto", name: "Cortina", desc: "Tecido fluido off-white.", total: 1, confirmed: 0, items: [] },
+            { id: 51, room: "Quarto", name: "Tapete", desc: "Pequeno tapete felpudo cinza claro.", total: 1, confirmed: 0, items: [] },
+            { id: 52, room: "Quarto", name: "Cesto de Roupas", desc: "Cesto em fibra natural ou tricot cinza.", total: 1, confirmed: 0, items: [] },
 
-        // Renderizar a tela de itens de um ambiente
+            // Banheiro
+            { id: 53, room: "Banheiro", name: "Toalhas de Banho", desc: "Felpudas em tons de branco ou cinza.", total: 2, confirmed: 0, items: [] },
+            { id: 54, room: "Banheiro", name: "Toalhas de Rosto", desc: "Combinando com as de banho.", total: 2, confirmed: 0, items: [] },
+            { id: 55, room: "Banheiro", name: "Tapete", desc: "Algodão macio antiderrapante.", total: 1, confirmed: 0, items: [] },
+            { id: 56, room: "Banheiro", name: "Lixeira", desc: "Pedal, acabamento inox ou preto fosco.", total: 1, confirmed: 0, items: [] },
+            { id: 57, room: "Banheiro", name: "Porta-Sabonete", desc: "Cerâmica branca ou preta.", total: 1, confirmed: 0, items: [] },
+            { id: 58, room: "Banheiro", name: "Porta-Escova", desc: "Cerâmica para bancada combinando.", total: 1, confirmed: 0, items: [] },
+            { id: 59, room: "Banheiro", name: "Porta-Papel Higiênico", desc: "Suporte minimalista metálico escovado.", total: 1, confirmed: 0, items: [] },
+            { id: 60, room: "Banheiro", name: "Kit Banheiro", desc: "Conjunto completo organizador de bancada.", total: 1, confirmed: 0, items: [] },
+
+            // Sala
+            { id: 61, room: "Sala", name: "Almofadas", desc: "Capas de linho bege ou cinza.", total: 2, confirmed: 0, items: [] },
+            { id: 62, room: "Sala", name: "Manta", desc: "Manta macia para poltrona, tom cru.", total: 1, confirmed: 0, items: [] },
+            { id: 63, room: "Sala", name: "Tapete", desc: "Modelo geométrico elegante preto/branco.", total: 1, confirmed: 0, items: [] },
+            { id: 64, room: "Sala", name: "Cortina", desc: "Gaze de linho na cor cinza claro.", total: 1, confirmed: 0, items: [] },
+            { id: 65, room: "Sala", name: "Porta-Retrato", desc: "Moldura minimalista em madeira clara ou preta.", total: 1, confirmed: 0, items: [] },
+            { id: 66, room: "Sala", name: "Bandeja Decorativa", desc: "Madeira clara ou laca preta de apoio.", total: 1, confirmed: 0, items: [] },
+            { id: 67, room: "Sala", name: "Vaso Decorativo", desc: "Cerâmica fosca branca ou cinza de mesa.", total: 1, confirmed: 0, items: [] }
+        ];
+
+        // Carregar do LocalStorage ou criar nova base
+        let database = JSON.parse(localStorage.getItem('um_lar_database')) || defaultGifts;
+        function saveDatabase() {
+            localStorage.setItem('um_lar_database', JSON.stringify(database));
+        }
+
+        let selectedItem = null;
+
+        // Renderizar os itens dentro de um cômodo específico
         function openRoom(roomName) {
             document.getElementById('modal-room-title').innerText = roomName;
-            const container = document.getElementById('modal-view-items');
+            const container = document.getElementById('modal-items-view');
             container.innerHTML = "";
             
-            document.getElementById('modal-view-items').style.display = "grid";
-            document.getElementById('modal-view-checkout').style.display = "none";
+            document.getElementById('modal-items-view').style.display = "grid";
+            document.getElementById('modal-checkout-view').style.display = "none";
 
-            database[roomName].forEach(item => {
+            const roomGifts = database.filter(item => item.room === roomName);
+
+            roomGifts.forEach(item => {
+                const percent = (item.confirmed / item.total) * 100;
+                let statusClass = "status-available";
                 let statusText = "🟢 Disponível";
-                if(item.status === 'reserved') statusText = "🟡 Reservado";
-                if(item.status === 'taken') statusText = "✨ Já faz parte do meu lar";
+
+                if (item.confirmed >= item.total) {
+                    statusClass = "status-taken";
+                    statusText = "✨ Já faz parte do meu lar";
+                } else if (item.items.some(i => i.status === 'reserved')) {
+                    statusClass = "status-reserved";
+                    statusText = "🟡 Reservado";
+                }
 
                 container.innerHTML += `
                     <div class="gift-item-card">
@@ -920,105 +894,208 @@
                             <div class="gift-img-placeholder">Preto / Branco / Inox / Vidro</div>
                             <div class="gift-name">${item.name}</div>
                             <div class="gift-desc">${item.desc}</div>
+                            ${item.total > 1 ? `
+                                <div class="gift-progress-bar">
+                                    <div class="gift-progress-fill" style="width: ${percent}%;"></div>
+                                </div>
+                                <div class="gift-progress-text">${item.confirmed} de ${item.total} presenteados</div>
+                            ` : ''}
                         </div>
-                        <div class="gift-status-row">
-                            <span class="status-badge status-${item.status}">${statusText}</span>
-                            ${item.status === 'available' ? `<button class="btn-action-gift" onclick="openCheckout('${roomName}', ${item.id})">Presentear</button>` : ''}
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                            ${item.confirmed < item.total ? `<button class="btn-presentear" onclick="startCheckout(${item.id})">Presentear</button>` : ''}
                         </div>
                     </div>
                 `;
             });
 
-            document.getElementById('side-modal').classList.add('open');
+            openModal('gift-modal');
         }
 
-        function closeModal() {
-            document.getElementById('side-modal').classList.remove('open');
-        }
+        // Fluxo de checkout interativo
+        function startCheckout(itemId) {
+            selectedItem = database.find(i => i.id === itemId);
+            document.getElementById('modal-items-view').style.display = "none";
+            document.getElementById('modal-checkout-view').style.display = "block";
+            document.getElementById('checkout-item-name').innerText = selectedItem.name;
 
-        function closeModalOnOutsideClick(e) {
-            if(e.target.id === 'side-modal') closeModal();
-        }
+            // Limpa fluxos anteriores
+            document.getElementById('flow-pix').style.display = 'none';
+            document.getElementById('flow-delivery').style.display = 'none';
 
-        // Fluxo de checkout do presente
-        function openCheckout(room, itemId) {
-            const item = database[room].find(i => i.id === itemId);
-            document.getElementById('modal-view-items').style.display = "none";
-            document.getElementById('modal-view-checkout').style.display = "block";
-            document.getElementById('checkout-product-name').innerText = item.name;
-            
-            // Oculta painéis internos de escolha anteriores
-            document.getElementById('area-pix').style.display = "none";
-            document.getElementById('area-delivery').style.display = "none";
+            // Configura botão WhatsApp dinâmico
+            const whatsappText = encodeURIComponent(`Olá, Kethellen! 😊\n\nConheci seu projeto "Um Lar, Um Recomeço" e escolhi presentear você com:\n\n🎁 ${selectedItem.name}\n\nGostaria de combinar a entrega.`);
+            document.getElementById('whatsapp-redirect-btn').onclick = function() {
+                // Registra reserva no banco de dados local temporário
+                registerReservation(selectedItem.id, "Entrega Pessoal", "WhatsApp", "delivery");
+                window.open(`https://wa.me/5521983719151?text=${whatsappText}`, '_blank');
+                closeModal('gift-modal');
+            };
         }
 
         function backToItems() {
-            document.getElementById('modal-view-items').style.display = "grid";
-            document.getElementById('modal-view-checkout').style.display = "none";
+            document.getElementById('modal-items-view').style.display = "grid";
+            document.getElementById('modal-checkout-view').style.display = "none";
         }
 
-        function selectGiftOption(type) {
-            if(type === 'pix') {
-                document.getElementById('area-pix').style.display = "block";
-                document.getElementById('area-delivery').style.display = "none";
+        function selectFlow(type) {
+            if (type === 'pix') {
+                document.getElementById('flow-pix').style.display = 'block';
+                document.getElementById('flow-delivery').style.display = 'none';
             } else {
-                document.getElementById('area-delivery').style.display = "block";
-                document.getElementById('area-pix').style.display = "none";
+                document.getElementById('flow-delivery').style.display = 'block';
+                document.getElementById('flow-pix').style.display = 'none';
             }
         }
 
-        function copyPixKey() {
+        function copyPix() {
             navigator.clipboard.writeText("23038623709");
-            alert("Chave Pix copiada com sucesso!");
+            alert("Chave Pix copiada!");
         }
 
-        function finishGiftOrder() {
-            alert("Obrigado pelo carinho! A notificação de reserva foi simulada com sucesso.");
-            closeModal();
+        // Registra uma reserva
+        function registerReservation(itemId, name, phone, type, msg = "") {
+            const item = database.find(i => i.id === itemId);
+            item.items.push({
+                name: name,
+                phone: phone,
+                type: type,
+                msg: msg,
+                status: 'reserved',
+                date: new Date().toLocaleDateString('pt-BR')
+            });
+            saveDatabase();
         }
 
-        // Geração da Grade de Números da Chá-Rifa
-        function generateRifaGrid() {
-            const container = document.getElementById('rifa-numbers-container');
-            container.innerHTML = "";
-            
-            for(let i = 1; i <= 100; i++) {
-                let statusClass = "num-available";
-                if(i === 12 || i === 45) statusClass = "num-reserved";
-                if(i === 7 || i === 23 || i === 88) statusClass = "num-confirmed";
+        function submitPixForm() {
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const file = document.getElementById('form-comprovante').value;
 
-                container.innerHTML += `
-                    <div class="num-cell ${statusClass}" onclick="clickRifaNumber(${i}, '${statusClass}')">
-                        ${String(i).padStart(2, '0')}
-                    </div>
-                `;
-            }
-        }
-
-        function clickRifaNumber(num, status) {
-            if(status === 'num-confirmed') {
-                alert("Este número já foi confirmado e já faz parte da construção do lar!");
+            if(!name || !phone || !file) {
+                alert("Por favor, preencha todos os campos obrigatórios e envie o comprovante.");
                 return;
             }
-            document.getElementById('rifa-chosen-number').innerText = String(num).padStart(2, '0');
-            document.getElementById('rifa-modal').classList.add('open');
+
+            registerReservation(selectedItem.id, name, phone, "Contribuição Pix", document.getElementById('form-msg').value);
+            alert("Contribuição enviada! Assim que confirmado o Pix, sua participação no sorteio aparecerá automaticamente.");
+            closeModal('gift-modal');
         }
 
-        function closeRifaModal() {
-            document.getElementById('rifa-modal').classList.remove('open');
+        // --- SISTEMA ADMIN ---
+        function authAdmin() {
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === "1601") { // Senha baseada na sua data de nascimento (16/01)
+                document.getElementById('admin-auth').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                renderAdminDashboard();
+            } else {
+                alert("Senha inválida.");
+            }
         }
 
-        function closeRifaModalOnOutsideClick(e) {
-            if(e.target.id === 'rifa-modal') closeRifaModal();
+        function renderAdminDashboard() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = "";
+
+            let completed = 0;
+            let available = 0;
+            let participants = new Set();
+
+            database.forEach(item => {
+                completed += item.confirmed;
+                available += (item.total - item.confirmed);
+
+                item.items.forEach((res, index) => {
+                    if (res.status === 'confirmed') {
+                        participants.add(res.phone);
+                    }
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.room}</td>
+                            <td>${res.name}</td>
+                            <td>${res.phone}</td>
+                            <td>${res.type}</td>
+                            <td><span class="status-badge status-${res.status}">${res.status === 'confirmed' ? '✨ Confirmado' : '🟡 Reservado'}</span></td>
+                            <td>
+                                ${res.status === 'reserved' ? `
+                                    <button class="btn-table" style="background:#2E7D32; color:#FFF;" onclick="changeResStatus(${item.id}, ${index}, 'confirmed')">Confirmar</button>
+                                ` : ''}
+                                <button class="btn-table" style="background:#C62828; color:#FFF;" onclick="changeResStatus(${item.id}, ${index}, 'cancelled')">Cancelar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+
+            // Atualização de Estatísticas
+            document.getElementById('stat-completed').innerText = completed;
+            document.getElementById('stat-available').innerText = available;
+            document.getElementById('stat-participants').innerText = participants.size;
+            
+            const totalItemsNeeded = database.reduce((acc, current) => acc + current.total, 0);
+            const percent = ((completed / totalItemsNeeded) * 100).toFixed(0);
+            document.getElementById('stat-percent').innerText = `${percent}%`;
         }
 
-        function submitRifaCota() {
-            alert("Comprovante da cota enviado! O status será atualizado após a validação.");
-            closeRifaModal();
+        function changeResStatus(itemId, resIndex, newStatus) {
+            const item = database.find(i => i.id === itemId);
+            if (newStatus === 'confirmed') {
+                item.items[resIndex].status = 'confirmed';
+                item.confirmed = Math.min(item.confirmed + 1, item.total);
+            } else if (newStatus === 'cancelled') {
+                if (item.items[resIndex].status === 'confirmed') {
+                    item.confirmed = Math.max(item.confirmed - 1, 0);
+                }
+                item.items.splice(resIndex, 1);
+            }
+            saveDatabase();
+            renderAdminDashboard();
         }
 
-        // Inicialização automática da grade da Rifa
-        generateRifaGrid();
+        // Exportação Transparente do Sorteio
+        function exportSorteio() {
+            let csvContent = "data:text/csv;charset=utf-8,Nome,WhatsApp,Presente,Tipo\n";
+            database.forEach(item => {
+                item.items.forEach(res => {
+                    if (res.status === 'confirmed') {
+                        csvContent += `"${res.name}","${res.phone}","${item.name}","${res.type}"\n`;
+                    }
+                });
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "sorteio_participantes.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Utilitários de Janela Modal
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+        function openAdminModal() {
+            document.getElementById('admin-auth').style.display = 'block';
+            document.getElementById('admin-dashboard').style.display = 'none';
+            openModal('admin-modal');
+        }
+        function closeOnOutside(e, id) {
+            if (e.target.id === id) closeModal(id);
+        }
+
+        // Mostrar frases progressivas ao rolar
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.story-phrase').forEach(el => {
+                const pos = el.getBoundingClientRect().top;
+                if(pos < window.innerHeight * 0.85) el.classList.add('scroll-visible');
+            });
+        });
     </script>
 </body>
 </html>
